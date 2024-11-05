@@ -1,5 +1,5 @@
 'use client'
-import { BarChart2, TableOfContents, KeyIcon, Grid3X3Icon, BoltIcon, HelpCircle, ChevronRight } from 'lucide-react'
+import { BarChart2, TableOfContents, KeyIcon, Grid3X3Icon, BoltIcon, HelpCircle, ChevronRight, NotebookIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Button } from './ui/button'
 import { useState } from 'react'
@@ -41,6 +41,7 @@ export function VerticalNav(){
     const toggleDropdown = (index: any) => {
         setOpenDropdown(openDropdown === index ? null : index)
     }
+
 
     return(
         <>

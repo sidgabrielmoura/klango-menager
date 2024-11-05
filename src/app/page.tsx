@@ -35,8 +35,8 @@ export default function Home() {
               <div className="text-2xl font-bold">2,345</div>
               <p className="text-xs text-muted-foreground">+8.1% from last month</p>
             </CardContent>
-          </Card>
-          <Card className="bg-zinc-800 border-zinc-600 text-zinc-300">
+            </Card>
+            <Card className="bg-zinc-800 border-zinc-600 text-zinc-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
               <BarChart className="h-4 w-4 text-muted-foreground" />
