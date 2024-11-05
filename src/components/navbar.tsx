@@ -23,7 +23,7 @@ export function Navbar(){
         document.documentElement.classList.toggle('dark');
     };
     const navItems = [
-        { name: 'Home', href: '/', icon: Home },
+        { name: 'Dashboard', href: '/', icon: Home },
         { name: 'Dashboard', href: '/dashboard', icon: BarChart2 },
         { name: 'Users', href: '/users', icon: Users },
         { name: 'Settings', href: '/settings', icon: Settings },
