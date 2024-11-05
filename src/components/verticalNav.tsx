@@ -1,5 +1,5 @@
 'use client'
-import { BarChart2, TableOfContents, KeyIcon, Grid3X3Icon, BoltIcon, HelpCircle, ChevronRight } from 'lucide-react'
+import { BarChart2, TableOfContents, KeyIcon, Grid3X3Icon, BoltIcon, HelpCircle, ChevronRight, NotebookIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Button } from './ui/button'
 import Link from 'next/link'
@@ -20,7 +20,7 @@ export function VerticalNav(){
     ]
     
     const siteContentItens = [
-        {name: 'Páginas', href: '/a', icon: BarChart2},
+        {name: 'Páginas', href: '/a', icon: NotebookIcon},
         {name: 'Blog ou Notícias', href: '/b', icon: BarChart2},
         {name: 'Galeria de Imagens/Vídeos', href: '/c', icon: BarChart2}
     ]
