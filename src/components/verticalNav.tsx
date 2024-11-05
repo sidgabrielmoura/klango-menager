@@ -2,7 +2,6 @@
 import { BarChart2, TableOfContents, KeyIcon, Grid3X3Icon, BoltIcon, HelpCircle, ChevronRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Button } from './ui/button'
-import Link from 'next/link'
 export function VerticalNav(){
 
     const navItems = [
@@ -63,16 +62,16 @@ export function VerticalNav(){
                                 }
                             >
                                 <div className='w-full flex justify-between'>
-                                    <Link href={item.href} className='flex gap-1'>
+                                    <div className='flex gap-1'>
                                         <item.icon className="mr-2 h-4 w-4" />
                                         {item.name}
-                                    </Link>
+                                    </div>
 
                                     <ChevronRight/>
                                 </div>
                             </Button>
-                            <div className='hidden'>
-                                <h1>hello</h1>
+                            <div className='w-full flex flex-col items-center'>
+                                
                             </div>
                         </>
                     ))}
