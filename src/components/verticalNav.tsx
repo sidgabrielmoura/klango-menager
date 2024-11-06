@@ -62,27 +62,31 @@ export function VerticalNav(){
                                         {item.name}
                                     </div>
 
-                                    <ChevronRight className={openDropdown === index ? 'rotate-90 transition-all duration-300' : 'rotate-0 transition-all duration-300'}/>
+                                    <ChevronRight className={openDropdown === index ? 'rotate-90 transition-all duration-200' : 'rotate-0 transition-all duration-200'}/>
                                 </div>
                             </Button>
 
-                            {openDropdown === index && (
+                            <div
+                                className={`transition-all duration-300 overflow-hidden ${
+                                    openDropdown === index ? 'max-h-screen' : 'max-h-0'
+                                }`}
+                            >
                                 <div className="w-full pl-3 mt-1 space-y-1">
                                     {item.items.map((subItem) => (
                                         <Button
                                             key={subItem.id}
                                             asChild
-                                            variant='ghost'
-                                            className={pathName === subItem.href ? 'w-full flex justify-start bg-zinc-600 hover:bg-zinc-700/50 hover:text-zinc-50 cursor-pointer': 'w-full flex justify-start bg-zinc-700/40 hover:bg-zinc-700/50 hover:text-zinc-50 cursor-pointer'}
+                                            variant="ghost"
+                                            className={pathName === subItem.href ? 'w-full flex justify-start bg-zinc-600 hover:bg-zinc-700/50 hover:text-zinc-50 cursor-pointer' : 'w-full flex justify-start bg-zinc-700/40 hover:bg-zinc-700/50 hover:text-zinc-50 cursor-pointer'}
                                         >
-                                            <Link href={subItem.href} className='flex gap-1'>
+                                            <Link href={subItem.href} className="flex gap-1">
                                                 <subItem.icon className="mr-2 h-4 w-4" />
                                                 {subItem.name}
                                             </Link>
                                         </Button>
                                     ))}
                                 </div>
-                            )}
+                            </div>
                         </div>
                     ))}
                 </div>
