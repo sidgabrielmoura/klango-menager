@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${nunito.style} antialiased bg-zinc-900 text-zinc-50 flex`}
+        className={`${nunito.style} antialiased bg-zinc-200 dark:bg-zinc-900 flex`}
       >
         <VerticalNav/>
         <section className="w-full h-screen">

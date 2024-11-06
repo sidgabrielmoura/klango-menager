@@ -2,7 +2,7 @@
 import { LuSunDim } from "react-icons/lu";
 import { CiMenuFries } from "react-icons/ci";
 import { Input } from "./ui/input";
-import { AlignJustify, Home, BarChart2, Users, Settings, HelpCircle, BoltIcon, Grid3X3Icon, KeyIcon, TableOfContents, ChevronRight } from 'lucide-react'
+import { AlignJustify, Home, BarChart2, Users, Settings, HelpCircle, BoltIcon, Grid3X3Icon, KeyIcon, TableOfContents, ChevronRight, AlertCircle, BookMarked, Drill, Ear, Eye, FlameIcon, HammerIcon, ImagePlus, Images, Layers, LetterText, LockIcon, MessageCircle } from 'lucide-react'
 import {
     Sheet,
     SheetClose,
@@ -28,45 +28,32 @@ export function Navbar() {
     const pathName = usePathname()
 
     const navItems = [
-        {
-            name: 'Dashboard', id: '1', icon: BarChart2, items: [
-                { name: 'Visão Geral', id: '1', href: '/', icon: BarChart2 },
-                { name: 'Relatórios de Desempenho', id: '2', href: '/b', icon: BarChart2 }
-            ]
-        },
-        {
-            name: 'Conteúdo do Site', id: '2', icon: TableOfContents, items: [
-                { name: 'Páginas', id: '3', href: '/a', icon: BarChart2 },
-                { name: 'Blog ou Notícias', id: '4', href: '/b', icon: BarChart2 },
-                { name: 'Galeria de Imagens/Vídeos', id: '5', href: '/c', icon: BarChart2 }
-            ]
-        },
-        {
-            name: 'Gerenciamento de Usuários', id: '3', icon: KeyIcon, items: [
-                { name: 'Permissões e Acessos', id: '6', href: '/a', icon: BarChart2 },
-                { name: 'Comentários e Feedback', id: '7', href: '/b', icon: BarChart2 }
-            ]
-        },
-        {
-            name: 'Análise e Estatísticas', id: '4', icon: Grid3X3Icon, items: [
-                { name: 'Tráfego', href: '/a', id: '8', icon: BarChart2 },
-                { name: 'Conversões', href: '/b', id: '9', icon: BarChart2 },
-                { name: 'SEO e Desempenho', id: '10', href: '/c', icon: BarChart2 }
-            ]
-        },
-        {
-            name: 'Configurações do Site', id: '5', icon: BoltIcon, items: [
-                { name: 'Configurações Gerais', id: '11', href: '/a', icon: BarChart2 },
-                { name: 'SEO e Meta Tags', id: '12', href: '/b', icon: BarChart2 },
-                { name: 'Domínio e Email', id: '13', href: '/c', icon: BarChart2 }
-            ]
-        },
-        {
-            name: 'Suporte', id: '6', icon: HelpCircle, items: [
-                { name: 'Ajuda e Documentação', id: '14', href: '/a', icon: BarChart2 },
-                { name: 'Contato com Suporte', id: '15', href: '/b', icon: BarChart2 }
-            ]
-        }
+        { name: 'Dashboard', id: '1', icon: BarChart2, items: [
+            { name: 'Visão Geral', id: '1', href: '/', icon: Eye },
+            { name: 'Relatórios de Desempenho', id: '2', href: '/b', icon: FlameIcon }
+        ] },
+        { name: 'Conteúdo do Site', id: '2', icon: TableOfContents, items: [
+            { name: 'Páginas', id: '3', href: '/a', icon: Layers },
+            { name: 'Blog ou Notícias', id: '4', href: '/b', icon: ImagePlus },
+            { name: 'Galeria de Imagens/Vídeos', id: '5', href: '/c', icon: Images }
+        ] },
+        { name: 'Gerenciamento de Usuários', id: '3', icon: KeyIcon, items: [
+            { name: 'Permissões e Acessos', id: '6', href: '/a', icon: LockIcon },
+            { name: 'Comentários e Feedback', id: '7', href: '/b', icon: MessageCircle }
+        ] },
+        { name: 'Análise e Estatísticas', id: '4', icon: Grid3X3Icon, items: [
+            { name: 'Tráfego', href: '/a', id: '8', icon: AlertCircle },
+            { name: 'Conversões', href: '/b', id: '9', icon: LetterText },
+        ] },
+        { name: 'Configurações do Site', id: '5', icon: BoltIcon, items: [
+            { name: 'Configurações Gerais', id: '11', href: '/a', icon: HammerIcon },
+            { name: 'SEO e Meta Tags', id: '12', href: '/b', icon: Drill },
+            { name: 'Domínio e Email', id: '13', href: '/c', icon: BarChart2 }
+        ] },
+        { name: 'Suporte', id: '6', icon: HelpCircle, items: [
+            { name: 'Ajuda e Documentação', id: '14', href: '/a', icon: BookMarked },
+            { name: 'Contato com Suporte', id: '15', href: '/b', icon: Ear }
+        ] }
     ]
 
     const toggleDropdown = (index: any) => {
@@ -90,7 +77,10 @@ export function Navbar() {
                             <CiMenuFries className="md:hidden size-5" />
                         </SheetTrigger>
                         <SheetContent className="p-2">
-                            <SheetTitle>Navbar</SheetTitle>
+                            <SheetTitle className="pb-5 flex gap-1 items-center">
+                                <LuSunDim className="size-6 cursor-pointer" onClick={toggleDarkMode} />
+                                Navbar 
+                            </SheetTitle>
                             {navItems.map((item, index) => (
                                 <div key={item.id} className='w-full'>
                                     <Button
@@ -98,7 +88,7 @@ export function Navbar() {
                                         onClick={() => toggleDropdown(index)}
                                         asChild
                                         variant='ghost'
-                                        className={'w-full flex justify-normal px-2 hover:bg-zinc-700/40 hover:text-zinc-50 cursor-pointer'}
+                                        className={'w-full flex justify-start dark:hover:bg-zinc-700/40 dark:hover:text-zinc-50 cursor-pointer'}
                                     >
                                         <div className='w-full flex justify-between'>
                                             <div className='flex gap-1 truncate'>
@@ -120,7 +110,7 @@ export function Navbar() {
                                                     key={subItem.id}
                                                     asChild
                                                     variant="ghost"
-                                                    className={pathName === subItem.href ? 'w-full flex justify-start bg-zinc-900 hover:bg-zinc-900 hover:text-zinc-50 cursor-pointer px-2' : 'w-full flex justify-start px-2 hover:bg-zinc-900/50 hover:text-zinc-50 cursor-pointer'}
+                                                    className={pathName === subItem.href ? 'w-full flex justify-start bg-zinc-200/70 hover:bg-zinc-200/70 dark:bg-zinc-800/80 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 cursor-pointer' : 'w-full flex justify-start hover:bg-zinc-100 dark:bg-zinc-900/40 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 cursor-pointer'}
                                                 >
                                                     <Link href={subItem.href} className="flex gap-1">
                                                         <subItem.icon className="mr-2 h-4 w-4" />
