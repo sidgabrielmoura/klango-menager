@@ -1,5 +1,5 @@
 'use client'
-import { BarChart2, TableOfContents, KeyIcon, Grid3X3Icon, BoltIcon, HelpCircle, ChevronRight, NotebookIcon } from 'lucide-react'
+import { BarChart2, TableOfContents, KeyIcon, Grid3X3Icon, BoltIcon, HelpCircle, ChevronRight, NotebookIcon, LucideLayers, LucideChartNoAxesColumnDecreasing } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Button } from './ui/button'
 export function VerticalNav(){
@@ -25,12 +25,12 @@ export function VerticalNav(){
     ]
 
     const userManeger = [
-        {name: 'Permissões e Acessos', href: '/a', icon: BarChart2},
+        {name: 'Permissões e Acessos', href: '/a', icon: LucideLayers},
         {name: 'Comentários e Feedback', href: '/b', icon: BarChart2}
     ]
 
     const analysisAndStatisticsItens = [
-        {name: 'Tráfego', href: '/a', icon: BarChart2},
+        {name: 'Tráfego', href: '/a', icon: LucideChartNoAxesColumnDecreasing},
         {name: 'Conversões', href: '/b', icon: BarChart2},
         {name: 'SEO e Desempenho', href: '/c', icon: BarChart2}
     ]
