@@ -74,7 +74,7 @@ export function Dashboard() {
 
     return (
         <>
-            <main className="w-full h-[85%] overflow-y-auto p-4 md:p-5 flex flex-col gap-5">
+            <main className="w-full h-[85%] overflow-y-auto p-4 md:p-5 flex flex-col gap-5 backdrop-blur-sm">
                 <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
                     {cardsData.map((item) => (
                         <Card className="dark:bg-zinc-800 dark:border-zinc-600 dark:text-zinc-300 w-full" key={item.id}>
