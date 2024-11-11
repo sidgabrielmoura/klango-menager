@@ -44,14 +44,14 @@ export function CommentsDashBoard(){
 
                 <section className="w-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2">
                     {cardsData.map((item) => (
-                        <Card key={item.id} className="relative z-30 flex justify-center dark:bg-zinc-800 dark:border-zinc-600 p-5 font-medium drop-shadow-[0_5px_5px_rgba(0,0,0,0.25)] group">
-                            <div className="relative z-30 flex rounded-md justify-center bg-zinc-100 dark:bg-zinc-800 dark:border-zinc-600 p-8 font-medium drop-shadow-[0_5px_5px_rgba(0,0,0,0.25)] group-hover:-translate-y-10 transition-all duration-200">
+                        <Card key={item.id} className="relative z-20 flex justify-center dark:bg-zinc-800 dark:border-zinc-600 p-5 font-medium drop-shadow-[0_5px_5px_rgba(0,0,0,0.25)] group">
+                            <div className="relative z-20 flex rounded-md justify-center bg-zinc-100 dark:bg-zinc-800 dark:border-zinc-600 p-8 font-medium drop-shadow-[0_5px_5px_rgba(0,0,0,0.25)] group-hover:-translate-y-10 transition-all duration-200">
                                 <div className="max-w-[550px]">
                                     <h1 className="font-bold">{ item.username } -</h1>
                                     <h1>" {item.content} "</h1>
                                 </div>
                             </div>
-                            <div className="absolute bottom-6 flex gap-4 items-center px-3 py-1 rounded-full dark:bg-zinc-200">
+                            <div className="absolute z-30 lg:!z-0 bottom-[88%] lg:bottom-6 flex gap-4 items-center px-3 py-1 rounded-full dark:bg-zinc-200">
                                  <div className="size-5 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path fill="#371ae5" d="m1902 196l121 120L683 1657L25 999l121-121l537 537z"/></svg>
                                  </div>

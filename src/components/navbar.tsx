@@ -33,10 +33,8 @@ export function Navbar() {
         ] },
         { name: 'Conteúdo do Site', id: '2', icon: TableOfContents, items: [
             { name: 'seções', id: '3', href: '/sections', icon: Layers },
-            { name: 'Galeria de Imagens/Vídeos', id: '5', href: '/c', icon: Images }
         ] },
         { name: 'Gerenciamento de Usuários', id: '3', icon: KeyIcon, items: [
-            { name: 'Permissões e Acessos', id: '6', href: '/a', icon: LockIcon },
             { name: 'Comentários e Feedback', id: '7', href: '/b', icon: MessageCircle }
         ] },
         { name: 'Análise e Estatísticas', id: '4', icon: Grid3X3Icon, items: [
@@ -67,14 +65,14 @@ export function Navbar() {
                     <h1 className="text-[13px]">pages / {pathNameView}</h1>
                     <div className="flex gap-2">
                         <Input placeholder="pesquise aqui" className="border-zinc-700 focus:border-zinc-300 w-full" />
-                        <LuSunDim className="size-8 cursor-pointer hidden md:block" onClick={toggleDarkMode} />
+                        <LuSunDim className="size-8 cursor-pointer hidden lg:block" onClick={toggleDarkMode} />
                     </div>
                 </div>
 
-                <div className="gap-2 items-center md:w-2/3 lg:w-1/4 block md:hidden">
+                <div className="gap-2 items-center block lg:hidden">
                     <Sheet>
                         <SheetTrigger>
-                            <CiMenuFries className="md:hidden size-5" />
+                            <CiMenuFries className="lg:hidden size-5" />
                         </SheetTrigger>
                         <SheetContent className="p-2">
                             <SheetTitle className="pb-5 flex gap-1 items-center">

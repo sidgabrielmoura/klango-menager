@@ -41,7 +41,7 @@ export function VerticalNav(){
 
     return(
         <>
-            <section className="min-w-[300px] bg-zinc-300 dark:bg-zinc-800 h-screen hidden md:block">
+            <section className="w-[300px] bg-zinc-300 dark:bg-zinc-800 !h-screen hidden lg:block">
                 <div className='h-full py-6 flex flex-col justify-between'>
                     <div className="space-y-1 px-3 flex flex-col items-start w-full">
                         {navItems.map((item, index) => (

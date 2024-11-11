@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { LuSunDim } from "react-icons/lu";
 import { Navbar } from "@/components/navbar";
 import { VerticalNav } from "@/components/verticalNav";
+import { useEffect } from "react";
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',
