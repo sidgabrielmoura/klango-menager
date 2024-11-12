@@ -14,6 +14,7 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: "Klango manager",
   description: "",
+  robots: "page"
 };
 
 export default function RootLayout({
