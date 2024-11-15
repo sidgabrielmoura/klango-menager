@@ -66,7 +66,7 @@ export function FeedbackPage(){
 
     return(
         <>
-            <main className="w-full h-[85%] overflow-y-auto p-2 md:p-5 grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-3">
+            <main className="w-full h-[85%] overflow-y-auto p-2 md:p-5 grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-1">
                 {comments.map((comment) => (
                     <section className="rounded-lg w-full h-[300px] flex flex-col items-center justify-center overflow-hidden shadow-lg" key={comment.id}>
                         <div className="w-full h-full bg-zinc-300 dark:bg-zinc-500/50 p-5 flex flex-col gap-2 overflow-y-auto">
@@ -79,9 +79,9 @@ export function FeedbackPage(){
                             </div>
                             <h1 className='break-words'>"{comment.content}"</h1>
                         </div>
-                        <div className="dark:bg-zinc-700/60 w-full py-2 flex items-center justify-center gap-2">
+                        <div className="dark:bg-zinc-700/60 w-full py-2 flex items-center justify-center gap-5">
                             <div title='editar'>
-                                <Pen className='cursor-pointer'/>
+                                <Pen className='cursor-pointer size-5'/>
                             </div>
                             <div title='apagar'>
                                 <X className='size-7 cursor-pointer text-[#bd2525]'/>
