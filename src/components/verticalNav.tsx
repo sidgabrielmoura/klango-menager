@@ -19,10 +19,6 @@ export function VerticalNav(){
         { name: 'Gerenciamento de Usuários', id: '3', icon: KeyIcon, items: [
             { name: 'Comentários e Feedback', id: '7', href: '/feedback', icon: MessageCircle }
         ] },
-        { name: 'Configurações do Site', id: '5', icon: BoltIcon, items: [
-            { name: 'Configurações de Cores', id: '11', href: '/a', icon: HammerIcon },
-            { name: 'Domínio e Email', id: '13', href: '/c', icon: BarChart2 }
-        ] },
         { name: 'Suporte', id: '6', icon: HelpCircle, items: [
             { name: 'Ajuda e Documentação', id: '14', href: '/a', icon: BookMarked },
             { name: 'Contato com Suporte', id: '15', href: '/b', icon: Ear }
@@ -32,7 +28,6 @@ export function VerticalNav(){
     const toggleDropdown = (index: any) => {
         setOpenDropdown(openDropdown === index ? null : index)
     }
-
 
     return(
         <>

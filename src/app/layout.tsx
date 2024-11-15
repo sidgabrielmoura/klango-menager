@@ -6,6 +6,7 @@ import { LuSunDim } from "react-icons/lu";
 import { Navbar } from "@/components/navbar";
 import { VerticalNav } from "@/components/verticalNav";
 import { useEffect } from "react";
+import { Toaster } from "@/components/ui/toaster"
 const nunito = Nunito({
   subsets: ['latin'],
   display: 'swap',
@@ -32,6 +33,7 @@ export default function RootLayout({
         <section className="w-full h-screen">
           <Navbar/> 
           {children}
+          <Toaster />
         </section>
       </body>
     </html>

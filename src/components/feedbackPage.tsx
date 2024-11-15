@@ -1,70 +1,93 @@
+'use client'
 import { Pen, X } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-export function FeedbackPage(){
-    const comments = [
-        {
-            username: "Ana Silva",
-            content: "Estou apaixonada pelo produto! A qualidade é excelente, e realmente faz o que promete. Minha pele está mais hidratada e com um brilho saudável. Vou recomendar para todas as minhas amigas!",
-            id: "1"
-        },
-        {
-            username: "João Pereira",
-            content: "Que experiência incrível! A comida estava deliciosa e chegou no horário combinado. O atendimento foi super atencioso, e o preço é justo pela qualidade oferecida. Com certeza, vou pedir de novo!",
-            id: "2"
-        },
-        {
-            username: "Camila Souza",
-            content: "Eu amei minha compra! O tecido é ótimo, a cor é fiel à foto e o caimento é perfeito. Além disso, a entrega foi rápida e veio tudo bem embalado. Não vejo a hora de fazer o próximo pedido!",
-            id: "3"
-        },
-        {
-            username: "Ricardo Martins",
-            content: "O atendimento foi excelente e o consultor realmente entendeu as minhas necessidades. A análise e as sugestões foram muito úteis, e já estou vendo resultados. Recomendo para quem precisa de uma orientação profissional!",
-            id: "4"
-        },
-        {
-            username: "Mariana Rocha",
-            content: "Desde que comecei, sinto uma mudança incrível no meu corpo e na minha mente. As aulas são bem dinâmicas, e os professores têm muita atenção com cada aluno. É ótimo fazer parte dessa comunidade!",
-            id: "5"
-        },
-        {
-            username: "Lucas Almeida",
-            content: "O site ficou do jeito que imaginei: moderno, funcional e fácil de navegar. O desenvolvedor sempre esteve disponível para tirar dúvidas e ajustar os detalhes. Agora posso gerenciar tudo com facilidade. Super recomendo!",
-            id: "6"
-        },
-        {
-            username: "Ana Silva",
-            content: "Estou apaixonada pelo produto! A qualidade é excelente, e realmente faz o que promete. Minha pele está mais hidratada e com um brilho saudável. Vou recomendar para todas as minhas amigas!",
-            id: "7"
-        },
-        {
-            username: "João Pereira",
-            content: "Que experiência incrível! A comida estava deliciosa e chegou no horário combinado. O atendimento foi super atencioso, e o preço é justo pela qualidade oferecida. Com certeza, vou pedir de novo!",
-            id: "8"
-        },
-        {
-            username: "Camila Souza",
-            content: "Eu amei minha compra! O tecido é ótimo, a cor é fiel à foto e o caimento é perfeito. Além disso, a entrega foi rápida e veio tudo bem embalado. Não vejo a hora de fazer o próximo pedido!",
-            id: "9"
-        },
-        {
-            username: "Ricardo Martins",
-            content: "O atendimento foi excelente e o consultor realmente entendeu as minhas necessidades. A análise e as sugestões foram muito úteis, e já estou vendo resultados. Recomendo para quem precisa de uma orientação profissional!",
-            id: "10"
-        },
-        {
-            username: "Mariana Rocha",
-            content: "Desde que comecei, sinto uma mudança incrível no meu corpo e na minha mente. As aulas são bem dinâmicas, e os professores têm muita atenção com cada aluno. É ótimo fazer parte dessa comunidade!",
-            id: "11"
-        },
-        {
-            username: "Lucas Almeida",
-            content: "O site ficou do jeito que imaginei: moderno, funcional e fácil de navegar. O desenvolvedor sempre esteve disponível para tirar dúvidas e ajustar os detalhes. Agora posso gerenciar tudo com facilidade. Super recomendo!",
-            id: "12"
-        }
-    ]
+import { comment } from '@/interfaces/commum-interfaces';
+import { useEffect, useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+export function FeedbackPage() {
 
-    return(
+    const { toast } = useToast()
+    const [comments, setComments] = useState<Array<comment>>([])
+    const handleGetAllAcceptedComments = async () => {
+        try {
+            const response = await fetch('https://olpkkeodlhbjirohqpax.supabase.co/rest/v1/accepted-comments', {
+                method: 'GET',
+                headers: {
+                    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9scGtrZW9kbGhiamlyb2hxcGF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE1OTE4ODYsImV4cCI6MjA0NzE2Nzg4Nn0.JwWNT9K1iTv4x2isG_CQK_Os_T5p8eNaC24wyMhPvZg'
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status}`);
+            }
+
+            const data: any = await response.json()
+            console.log(response)
+            setComments(data)
+        } catch (error: any) {
+
+            console.error('Erro ao fazer a requisição:', error);
+
+            const errorReport = {
+                message: error.message || 'Erro desconhecido',
+                stack: error.stack || 'Sem stack disponível',
+                response: error.response ? {
+                    status: error.response.status,
+                    statusText: error.response.statusText,
+                    data: error.response._data
+                } : 'Nenhuma resposta recebida'
+            };
+
+            console.error('Relatório de erro:', errorReport);
+
+        }
+    }
+
+    useEffect(() => {
+        handleGetAllAcceptedComments()
+    }, [])
+
+
+    const [deletingComment, setDeletingComment] = useState<number | null>(null)
+    const handleDeleteAcceptedComments = async (id: number) => {
+        try {
+            setDeletingComment(id)
+            const response = await fetch(`https://olpkkeodlhbjirohqpax.supabase.co/rest/v1/accepted-comments?id=eq.${id}`, {
+                method: "DELETE",
+                headers: {
+                    'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}`
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error(`Erro ao deletar comentário: ${response.status}`);
+            }
+
+            toast({
+                title: "Comentário deletado com sucesso",
+                description: "Este comentário não irá aparecer na seção de avaliações do seu site",
+            })
+
+            setDeletingComment(null)
+            setComments(prevComments => prevComments.filter(item => item.id !== id))
+        } catch (error: any) {
+            console.error('Erro ao fazer a requisição:', error);
+
+            const errorReport = {
+                message: error.message || 'Erro desconhecido',
+                stack: error.stack || 'Sem stack disponível',
+                response: error.response ? {
+                    status: error.response.status,
+                    statusText: error.response.statusText,
+                    data: error.response._data
+                } : 'Nenhuma resposta recebida'
+            };
+
+            console.error('Relatório de erro:', errorReport);
+        }
+    }
+
+    return (
         <>
             <main className="w-full h-[85%] overflow-y-auto p-2 md:p-5 grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-1">
                 {comments.map((comment) => (
@@ -75,9 +98,9 @@ export function FeedbackPage(){
                                     <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
-                                <h1 className='text-[17px] font-semibold'>{comment.username}</h1>
+                                <h1 className='text-[17px] font-semibold'>{comment.name}</h1>
                             </div>
-                            <h1 className='break-words'>"{comment.content}"</h1>
+                            <h1 className='break-words'>"{comment.comment}"</h1>
                         </div>
                         <div className="dark:bg-zinc-700/60 w-full py-2 flex items-center justify-center gap-5">
                             <div title='editar'>
