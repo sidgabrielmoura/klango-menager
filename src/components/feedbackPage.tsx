@@ -13,7 +13,7 @@ export function FeedbackPage() {
             const response = await fetch('https://olpkkeodlhbjirohqpax.supabase.co/rest/v1/accepted-comments', {
                 method: 'GET',
                 headers: {
-                    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9scGtrZW9kbGhiamlyb2hxcGF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE1OTE4ODYsImV4cCI6MjA0NzE2Nzg4Nn0.JwWNT9K1iTv4x2isG_CQK_Os_T5p8eNaC24wyMhPvZg'
+                    'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}`
                 }
             })
 
@@ -87,27 +87,61 @@ export function FeedbackPage() {
         }
     }
 
+    const handleUpdateAcceptedComment = async (id: number) => {
+        try{
+            const response = await fetch(`https://olpkkeodlhbjirohqpax.supabase.co/rest/v1/accepted-comments?id=eq.${id}`, {
+                method: "PUT",
+                headers:{
+                    "apikey": `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    comment: 'atualização comment 16:24',
+                    name: 'novo nome 16:24',
+                    id
+                })
+            })
+
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+            }
+
+            const data = await response.text();
+            console.log("Atualização bem-sucedida:", data);
+        }catch (error: any) {
+            console.error('Erro ao fazer a requisição:', error);
+
+            const errorReport = {
+                message: error.message || 'Erro desconhecido',
+                stack: error.stack || 'Sem stack disponível',
+                response: error.response ? {
+                    status: error.response.status,
+                    statusText: error.response.statusText,
+                    data: error.response._data
+                } : 'Nenhuma resposta recebida'
+            };
+
+            console.error('Relatório de erro:', errorReport);
+        }
+    }
+
     return (
         <>
             <main className="w-full h-[85%] overflow-y-auto p-2 md:p-5 grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-1">
                 {comments.map((comment) => (
                     <section className="rounded-lg w-full h-[300px] flex flex-col items-center justify-center overflow-hidden shadow-lg" key={comment.id}>
                         <div className="w-full h-full bg-zinc-300 dark:bg-zinc-500/50 p-5 flex flex-col gap-2 overflow-y-auto">
-                            <div className='flex items-center gap-2 '>                            
-                                <Avatar>
-                                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                                    <AvatarFallback>CN</AvatarFallback>
-                                </Avatar>
-                                <h1 className='text-[17px] font-semibold'>{comment.name}</h1>
+                            <div className='flex items-center gap-2 '> 
+                                <h1 className='text-[17px] font-semibold'>{comment.name} -</h1>
                             </div>
                             <h1 className='break-words'>"{comment.comment}"</h1>
                         </div>
                         <div className="dark:bg-zinc-700/60 w-full py-2 flex items-center justify-center gap-5">
                             <div title='editar'>
-                                <Pen className='cursor-pointer size-5'/>
+                                <Pen className='cursor-pointer size-5' onClick={() => handleUpdateAcceptedComment(comment.id)}/>
                             </div>
                             <div title='apagar'>
-                                <X className='size-7 cursor-pointer text-[#bd2525]'/>
+                                <X className='size-7 cursor-pointer text-[#bd2525]' onClick={() => handleDeleteAcceptedComments(comment.id)}/>
                             </div>
                         </div>
                     </section>
