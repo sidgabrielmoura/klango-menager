@@ -162,7 +162,7 @@ export function CommentsDashBoard() {
                             </Card>
                         ))
                     ) : (
-                        <h1 className="text-center font-bold w-full animate-pulse">Nenhum comentário disponível...</h1>
+                        <h1 className="text-center text-[14px] font-medium w-full animate-pulse">Nenhum comentário até o momento...</h1>
                     )}
                 </section>
             </main>

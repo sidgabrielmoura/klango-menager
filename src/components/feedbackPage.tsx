@@ -4,10 +4,13 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { comment } from '@/interfaces/commum-interfaces';
 import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import '../app/globals.css'
+import { ModalEditFeedback } from './modalEditFeedback';
 export function FeedbackPage() {
 
     const { toast } = useToast()
     const [comments, setComments] = useState<Array<comment>>([])
+    const [selectedFeedback, setSelectedFeedback] = useState<comment | null>(null)
     const handleGetAllAcceptedComments = async () => {
         try {
             const response = await fetch('https://olpkkeodlhbjirohqpax.supabase.co/rest/v1/accepted-comments', {
@@ -46,7 +49,6 @@ export function FeedbackPage() {
     useEffect(() => {
         handleGetAllAcceptedComments()
     }, [])
-
 
     const [deletingComment, setDeletingComment] = useState<number | null>(null)
     const handleDeleteAcceptedComments = async (id: number) => {
@@ -87,65 +89,60 @@ export function FeedbackPage() {
         }
     }
 
-    const handleUpdateAcceptedComment = async (id: number) => {
-        try{
-            const response = await fetch(`https://olpkkeodlhbjirohqpax.supabase.co/rest/v1/accepted-comments?id=eq.${id}`, {
-                method: "PUT",
-                headers:{
-                    "apikey": `${process.env.NEXT_PUBLIC_SUPABASE_API_KEY}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    comment: 'atualização comment 16:24',
-                    name: 'novo nome 16:24',
-                    id
-                })
-            })
+    const [modalIsShow, setModalIsShow] = useState(false)
+    const toogleModal = () => {
+        setModalIsShow(!modalIsShow)
+    } 
 
-            if (!response.ok) {
-                throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
-            }
+    const [id, setId] = useState<any>()
+    const handleEditFeedback = (feedback: comment, id: any) => {
+        setSelectedFeedback(feedback);
+        setId(id)
+        setModalIsShow(true);
+    };
 
-            const data = await response.text();
-            console.log("Atualização bem-sucedida:", data);
-        }catch (error: any) {
-            console.error('Erro ao fazer a requisição:', error);
-
-            const errorReport = {
-                message: error.message || 'Erro desconhecido',
-                stack: error.stack || 'Sem stack disponível',
-                response: error.response ? {
-                    status: error.response.status,
-                    statusText: error.response.statusText,
-                    data: error.response._data
-                } : 'Nenhuma resposta recebida'
-            };
-
-            console.error('Relatório de erro:', errorReport);
-        }
-    }
+    const handleUpdateCommentInParent = (updatedComment: comment) => {
+        setComments((prevComments) =>
+                prevComments.map((comment) =>
+                comment.id === updatedComment.id ? updatedComment : comment
+            )
+        );
+    };
 
     return (
         <>
-            <main className="w-full h-[85%] overflow-y-auto p-2 md:p-5 grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-1">
+            <main className="w-full h-[85%] overflow-y-auto p-2 md:p-5 grid sm:grid-cols-2 xl:grid-cols-3 gap-1">
                 {comments.map((comment) => (
-                    <section className="rounded-lg w-full h-[300px] flex flex-col items-center justify-center overflow-hidden shadow-lg" key={comment.id}>
+                    <section className="rounded-lg w-full h-[200px] flex items-center justify-center overflow-hidden shadow-lg scroll-none" key={comment.id}>
                         <div className="w-full h-full bg-zinc-300 dark:bg-zinc-500/50 p-5 flex flex-col gap-2 overflow-y-auto">
                             <div className='flex items-center gap-2 '> 
                                 <h1 className='text-[17px] font-semibold'>{comment.name} -</h1>
                             </div>
                             <h1 className='break-words'>"{comment.comment}"</h1>
                         </div>
-                        <div className="dark:bg-zinc-700/60 w-full py-2 flex items-center justify-center gap-5">
+                        <div className="dark:bg-zinc-700/60 h-full px-2 py-7 flex flex-col items-center gap-3">
                             <div title='editar'>
-                                <Pen className='cursor-pointer size-5' onClick={() => handleUpdateAcceptedComment(comment.id)}/>
+                                <Pen className='cursor-pointer size-4' onClick={() => handleEditFeedback(comment, comment.id)}/>
                             </div>
                             <div title='apagar'>
-                                <X className='size-7 cursor-pointer text-[#bd2525]' onClick={() => handleDeleteAcceptedComments(comment.id)}/>
+                                <X className='size-5 cursor-pointer text-[#bd2525]' onClick={() => handleDeleteAcceptedComments(comment.id)}/>
                             </div>
                         </div>
                     </section>
                 ))}
+
+                {modalIsShow && selectedFeedback && (
+                    <div
+                        className="w-full h-full bg-black/70 absolute top-0 left-0 flex items-center justify-center px-10"
+                        onClick={toogleModal}
+                    >
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <ModalEditFeedback feedback={selectedFeedback} id={id} onClose={toogleModal} onCommentUpdated={handleUpdateCommentInParent}/>
+                        </div>
+                    </div>
+                )}
             </main>
         </>
     )
