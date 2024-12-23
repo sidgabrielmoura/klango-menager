@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import { comment } from "@/interfaces/commum-interfaces";
 import { useToast } from "@/hooks/use-toast";
+import { CreateNewComment } from "./createNewComment";
 
 export function CommentsDashBoard() {
 
@@ -133,11 +134,14 @@ export function CommentsDashBoard() {
     return (
         <>
             <main className="w-full flex flex-col gap-5">
+
                 <div className="bg-[#81C784] dark:bg-[#59ac5d] w-full flex items-center justify-center py-4 px-2 rounded-2xl">
                     <h1 className="text-[14px] sm:text-[14px] font-bold text-zinc-900">Comentários pendentes para aprovação ( {comments.length > 9 ? comments.length : `0${comments.length}`} )</h1>
                 </div>
 
+
                 <section className={comments.length > 0 ? 'w-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2' : 'w-full'}>
+                    <CreateNewComment/>
                     {comments.length > 0 ? (
                         comments.map((item) => (
                             <Card
