@@ -35,7 +35,7 @@ export function Navbar() {
             { name: 'seções', id: '3', href: '/sections', icon: Layers },
         ] },
         { name: 'Gerenciamento de Usuários', id: '3', icon: KeyIcon, items: [
-            { name: 'Comentários e Feedback', id: '7', href: '/b', icon: MessageCircle }
+            { name: 'Comentários e Feedback', id: '7', href: '/feedback', icon: MessageCircle }
         ] },
         { name: 'Suporte', id: '6', icon: HelpCircle, items: [
             { name: 'Ajuda e Documentação', id: '14', href: '/a', icon: BookMarked },
