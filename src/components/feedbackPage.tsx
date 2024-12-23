@@ -138,6 +138,7 @@ export function FeedbackPage() {
                     >
                         <div
                             onClick={(e) => e.stopPropagation()}
+                            className='w-full max-w-[500px]'
                         >
                             <ModalEditFeedback feedback={selectedFeedback} id={id} onClose={toogleModal} onCommentUpdated={handleUpdateCommentInParent}/>
                         </div>

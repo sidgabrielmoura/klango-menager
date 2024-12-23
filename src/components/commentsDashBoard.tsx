@@ -62,11 +62,6 @@ export function CommentsDashBoard() {
                 throw new Error(`Erro ao deletar comentário: ${response.status}`);
             }
 
-            toast({
-                title: "Comentário deletado com sucesso",
-                description: "Este comentário não irá aparecer na seção de avaliações do seu site",
-            })
-
             setComments(prevComments => prevComments.filter(item => item.id !== id))
         } catch (error: any) {
 
@@ -141,7 +136,7 @@ export function CommentsDashBoard() {
 
 
                 <section className={comments.length > 0 ? 'w-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2' : 'w-full'}>
-                    <CreateNewComment/>
+                    <CreateNewComment onCommentAdded={handleGetAllComments}/>
                     {comments.length > 0 ? (
                         comments.map((item) => (
                             <Card
@@ -156,17 +151,29 @@ export function CommentsDashBoard() {
                                     </div>
                                 </div>
                                 <div className="absolute z-30 lg:!z-0 bottom-[88%] lg:bottom-6 flex gap-4 items-center px-3 py-1 rounded-full dark:bg-zinc-200">
-                                    <div className="size-5 cursor-pointer" onClick={() => handleAddCommentsOnAcceptedTable(item.name, item.comment, item.id)}>
+                                    <div className="size-5 cursor-pointer" onClick={() => {
+                                        handleAddCommentsOnAcceptedTable(item.name, item.comment, item.id)
+                                        toast({
+                                            title: "Comentário aprovado!",
+                                            description: "Este comentário já está aparecendo na seção de comentários do seu site!",
+                                        })                            
+                                    }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path fill="#371ae5" d="m1902 196l121 120L683 1657L25 999l121-121l537 537z" /></svg>
                                     </div>
-                                    <div className="size-6 cursor-pointer" onClick={() => handleDeleteComment(item.id)}>
+                                    <div className="size-6 cursor-pointer" onClick={() => {
+                                        handleDeleteComment(item.id)
+                                        toast({
+                                            title: "Comentário deletado com sucesso",
+                                            description: "Este comentário não irá aparecer na seção de avaliações do seu site",
+                                        })                            
+                                    }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g fill="#e61919"><path d="M16.222 31.778a1 1 0 0 1 0-1.414L22.586 24l-6.364-6.364a1 1 0 0 1 1.414-1.414L24 22.586l6.364-6.364a1 1 0 0 1 1.414 1.414L25.414 24l6.364 6.364a1 1 0 0 1-1.414 1.414L24 25.414l-6.364 6.364a1 1 0 0 1-1.414 0" /><path fillRule="evenodd" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20m0-2c9.941 0 18-8.059 18-18S33.941 6 24 6S6 14.059 6 24s8.059 18 18 18" clipRule="evenodd" /></g></svg>
                                     </div>
                                 </div>
                             </Card>
                         ))
                     ) : (
-                        <h1 className="text-center text-[14px] font-medium w-full animate-pulse">Nenhum comentário até o momento...</h1>
+                        <h1 className="text-center text-[14px] font-medium w-full animate-pulse mt-8">Nenhum comentário até o momento...</h1>
                     )}
                 </section>
             </main>

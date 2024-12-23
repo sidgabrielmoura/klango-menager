@@ -17,9 +17,12 @@ import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from 'next/navigation'
 
 export function Navbar() {
-
+    const router = useRouter()
+    const { toast } = useToast()
     const toggleDarkMode = () => {
         document.documentElement.classList.toggle('dark');
     };
@@ -49,6 +52,19 @@ export function Navbar() {
 
     const pathNameView = pathName === '/' ? 'Dashboard' : pathName.replace('/', '')
 
+    const inbuild = () => {
+        toast({
+            title: "Em desenvolvimento ⚙️",
+            description: "Esta funcionalidade estará disponivel em uma breve atualização",
+        })
+    }
+
+    const handleNavigateTo = (href: string, pathName: string) => {
+        pathName === 'seções' || 
+        pathName === 'Ajuda e Documentação' || 
+        pathName === 'Contato com Suporte' ? inbuild() : router.push(href)
+    }
+
     return (
         <>
             <nav className="w-full h-[80px] flex items-center justify-between px-5 gap-2">
@@ -70,10 +86,10 @@ export function Navbar() {
                                 <LuSunDim className="size-6 cursor-pointer" onClick={toggleDarkMode} />
                                 Navbar 
                             </SheetTitle>
-                            {navItems.map((item, index) => (
-                                <div key={item.id} className='w-full'>
+                            {navItems.map((link, index) => (
+                                <div key={link.id} className='w-full'>
                                     <Button
-                                        key={item.id}
+                                        key={link.id}
                                         onClick={() => toggleDropdown(index)}
                                         asChild
                                         variant='ghost'
@@ -81,8 +97,8 @@ export function Navbar() {
                                     >
                                         <div className='w-full flex justify-between'>
                                             <div className='flex gap-1 truncate'>
-                                                <item.icon className="mr-2 h-4 w-4" />
-                                                {item.name}
+                                                <link.icon className="mr-2 h-4 w-4" />
+                                                {link.name}
                                             </div>
 
                                             <ChevronRight className={openDropdown === index ? 'rotate-90 transition-all duration-200' : 'rotate-0 transition-all duration-200'} />
@@ -94,17 +110,17 @@ export function Navbar() {
                                             }`}
                                     >
                                         <div className="w-full pl-3 mt-1 space-y-1">
-                                            {item.items.map((subItem) => (
+                                            {link.items.map((subItem) => (
                                                 <Button
                                                     key={subItem.id}
                                                     asChild
                                                     variant="ghost"
                                                     className={pathName === subItem.href ? 'w-full flex justify-start bg-zinc-200/70 hover:bg-zinc-200/70 dark:bg-zinc-800/80 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 cursor-pointer' : 'w-full flex justify-start hover:bg-zinc-100 dark:bg-zinc-900/40 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 cursor-pointer'}
                                                 >
-                                                    <Link href={subItem.href} className="flex gap-1">
+                                                    <button onClick={() => handleNavigateTo(subItem.href, subItem.name)} className="flex gap-1">
                                                         <subItem.icon className="mr-2 h-4 w-4" />
                                                         {subItem.name}
-                                                    </Link>
+                                                    </button>
                                                 </Button>
                                             ))}
                                         </div>

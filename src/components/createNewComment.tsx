@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetClose } from "./ui/sheet";
 import { Button } from "./ui/button";
 
-export function CreateNewComment() {
+export function CreateNewComment({ onCommentAdded }: { onCommentAdded: () => void }) {
     const [name, setName] = useState("");
     const [comment, setComment] = useState("");
 
@@ -26,10 +26,11 @@ export function CreateNewComment() {
                 throw new Error(`Erro ao adicionar comentário: ${response.status}`);
             }
 
-            const data = await response.json();
-            console.log("Comentário criado com sucesso:", data);
+            if (onCommentAdded) onCommentAdded()
+            setComment('')
+            setName('')
         } catch (error: any) {
-            console.error('Erro ao fazer a requisição:', error);
+            console.log('Erro ao fazer a requisição:', error);
         }
     };
 

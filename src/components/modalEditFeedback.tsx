@@ -70,7 +70,7 @@ export function ModalEditFeedback({...props}: ModalEditFeedbackProps){
 
     return(
         <>
-            <section className="rounded-lg w-full max-w-[500px] h-[200px] md:h-[250px] flex items-center justify-center overflow-hidden shadow-lg scroll-none">
+            <section className="rounded-lg w-full h-[200px] md:h-[250px] flex items-center justify-center overflow-hidden shadow-lg scroll-none">
                 <div className="w-full h-full bg-zinc-300 dark:bg-zinc-700 p-5 flex flex-col gap-2 overflow-y-auto">
                     <div className='flex items-center gap-2 '> 
                         <h1 className='text-[17px] font-semibold'>{props.feedback.name} -</h1>

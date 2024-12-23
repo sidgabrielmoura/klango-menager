@@ -5,7 +5,11 @@ import { usePathname } from 'next/navigation'
 import { Button } from './ui/button'
 import { useState } from 'react'
 import Link from 'next/link'
+import { useToast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 export function VerticalNav(){
+    const router = useRouter()
+    const { toast } = useToast()
     const [openDropdown, setOpenDropdown] = useState(null)
     const pathName = usePathname()
 
@@ -20,14 +24,31 @@ export function VerticalNav(){
             { name: 'Comentários e Feedback', id: '7', href: '/feedback', icon: MessageCircle }
         ] },
         { name: 'Suporte', id: '6', icon: HelpCircle, items: [
-            { name: 'Ajuda e Documentação', id: '14', href: '/a', icon: BookMarked },
-            { name: 'Contato com Suporte', id: '15', href: '/b', icon: Ear }
+            { name: 'Ajuda e Documentação', id: '14', href: '/documentation', icon: BookMarked },
+            { name: 'Contato com Suporte', id: '15', href: '/suport', icon: Ear }
         ] }
     ]
 
     const toggleDropdown = (index: any) => {
         setOpenDropdown(openDropdown === index ? null : index)
     }
+
+    const inbuild = () => {
+        toast({
+            title: "Em desenvolvimento ⚙️",
+            description: "Esta funcionalidade estará disponivel em uma breve atualização",
+        })
+    }
+
+    const handleNavigateTo = (href: string) => {
+        const restrictedRoutes = ['/sections', '/documentation', '/suport'];
+    
+        if (restrictedRoutes.includes(href)) {
+            inbuild()
+        } else {
+            router.push(href)
+        }
+    };
 
     return(
         <>
@@ -66,10 +87,10 @@ export function VerticalNav(){
                                                 variant="ghost"
                                                 className={pathName === subItem.href ? 'w-full flex justify-start bg-zinc-400/40 hover:bg-zinc-400/40 dark:bg-zinc-600/70 dark:hover:bg-zinc-600/70 dark:hover:text-zinc-50 cursor-pointer' : 'w-full flex justify-start hover:bg-zinc-400/40 dark:bg-zinc-700/40 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 cursor-pointer'}
                                             >
-                                                <Link href={subItem.href} className="flex gap-1">
+                                                <button onClick={() => handleNavigateTo(subItem.href)} className="flex gap-1">
                                                     <subItem.icon className="mr-2 h-4 w-4" />
                                                     {subItem.name}
-                                                </Link>
+                                                </button>
                                             </Button>
                                         ))}
                                     </div>
