@@ -135,7 +135,7 @@ export function CommentsDashBoard() {
                 </div>
 
 
-                <section className={comments.length > 0 ? 'w-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2' : 'w-full'}>
+                <section className={'w-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2'}>
                     <CreateNewComment onCommentAdded={handleGetAllComments}/>
                     {comments.length > 0 ? (
                         comments.map((item) => (
@@ -173,7 +173,7 @@ export function CommentsDashBoard() {
                             </Card>
                         ))
                     ) : (
-                        <h1 className="text-center text-[14px] font-medium w-full animate-pulse mt-8">Nenhum comentário até o momento...</h1>
+                        <h1 className="text-center text-[14px] font-medium w-full h-full animate-pulse flex items-center justify-center border border-zinc-500 rounded-lg">Nenhum comentário até o momento...</h1>
                     )}
                 </section>
             </main>

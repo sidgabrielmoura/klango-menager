@@ -25,7 +25,7 @@ export default function RootLayout({
   }>) {
 
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${nunito.style} antialiased bg-zinc-200 dark:bg-zinc-900 flex`}
       >

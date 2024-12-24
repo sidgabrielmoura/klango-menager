@@ -41,8 +41,7 @@ export function Navbar() {
             { name: 'Comentários e Feedback', id: '7', href: '/feedback', icon: MessageCircle }
         ] },
         { name: 'Suporte', id: '6', icon: HelpCircle, items: [
-            { name: 'Ajuda e Documentação', id: '14', href: '/a', icon: BookMarked },
-            { name: 'Contato com Suporte', id: '15', href: '/b', icon: Ear }
+            { name: 'Contato com Suporte', id: '15', href: '/suport', icon: Ear }
         ] }
     ]
 
@@ -59,11 +58,15 @@ export function Navbar() {
         })
     }
 
-    const handleNavigateTo = (href: string, pathName: string) => {
-        pathName === 'seções' || 
-        pathName === 'Ajuda e Documentação' || 
-        pathName === 'Contato com Suporte' ? inbuild() : router.push(href)
-    }
+    const handleNavigateTo = (href: string) => {
+        const restrictedRoutes = ['/sections', '/suport'];
+    
+        if (restrictedRoutes.includes(href)) {
+            inbuild()
+        } else {
+            router.push(href)
+        }
+    };
 
     return (
         <>
@@ -117,7 +120,7 @@ export function Navbar() {
                                                     variant="ghost"
                                                     className={pathName === subItem.href ? 'w-full flex justify-start bg-zinc-200/70 hover:bg-zinc-200/70 dark:bg-zinc-800/80 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 cursor-pointer' : 'w-full flex justify-start hover:bg-zinc-100 dark:bg-zinc-900/40 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 cursor-pointer'}
                                                 >
-                                                    <button onClick={() => handleNavigateTo(subItem.href, subItem.name)} className="flex gap-1">
+                                                    <button onClick={() => handleNavigateTo(subItem.href)} className="flex gap-1">
                                                         <subItem.icon className="mr-2 h-4 w-4" />
                                                         {subItem.name}
                                                     </button>
